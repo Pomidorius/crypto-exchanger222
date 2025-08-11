@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Start Hardhat Node",
+			"type": "shell",
+			"command": "npx hardhat node",
+			"isBackground": true,
+			"group": "build",
+			"problemMatcher": []
+		}
+	]
+}
