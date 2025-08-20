@@ -41,16 +41,16 @@ Install Command: npm install (автоматически)
 ```
 
 ### 5. Настройка переменных окружения
-В разделе "Environment Variables" добавьте:
+В разделе "Environment Variables" добавьте (у вас уже есть эти ключи в .env.local):
 
 ```bash
-# Обязательные переменные:
-NEXT_PUBLIC_PROJECT_ID = ваш-проект-id-от-walletconnect
-NEXT_PUBLIC_RPC_URL = https://mainnet.infura.io/v3/ВАШ_КЛЮЧ
+# Обязательные переменные (ваши текущие значения):
+NEXT_PUBLIC_PROJECT_ID = dummy-project-id-for-local-dev
+NEXT_PUBLIC_RPC_URL = https://mainnet.infura.io/v3/2643d99854284063b2852bea3af7e04a
 NEXT_PUBLIC_CHAIN_ID = 1
 
+# ✅ Эти ключи уже настроены в вашем проекте!
 # НЕ добавляйте приватный ключ на Vercel!
-# Деплой контрактов делайте локально
 ```
 
 ### 6. Деплой!
