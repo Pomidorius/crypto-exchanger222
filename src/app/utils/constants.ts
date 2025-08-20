@@ -25,26 +25,26 @@ export const TokenMap: Record<string, TokenInfo> = {
     symbol: 'ETH'
   },
   'WETH': {
-    address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+    address: '0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14', // Sepolia WETH
     decimals: 18,
     symbol: 'WETH'
   },
   'USDC': {
-    address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+    address: '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238', // Sepolia USDC
     decimals: 6,
     symbol: 'USDC'
   },
   'USDT': {
-    address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+    address: '0x7169D38820dfd117C3FA1f22a697dBA58d90BA06', // Sepolia USDT (example)
     decimals: 6,
     symbol: 'USDT'
   }
 };
 
-// Uniswap Routers and Quoter (mainnet)
-export const UNISWAP_V2_ROUTER = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D';
-export const UNISWAP_V3_ROUTER = '0xE592427A0AEce92De3Edee1F18E0157C05861564';
-export const UNISWAP_V3_QUOTER = '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6';
+// Uniswap Routers and Quoter (Sepolia testnet)
+export const UNISWAP_V2_ROUTER = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D'; // V2 Router на Sepolia
+export const UNISWAP_V3_ROUTER = '0xE592427A0AEce92De3Edee1F18E0157C05861564'; // V3 Router на Sepolia
+export const UNISWAP_V3_QUOTER = '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6'; // V3 Quoter на Sepolia
 
 /**
  * Минимальный ABI для SimpleProxySwap — упрощенная версия для локального тестирования.
