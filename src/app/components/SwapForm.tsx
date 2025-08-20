@@ -18,6 +18,11 @@ const ERC20_ABI = [
 export function SwapForm() {
   const { address, isConnected } = useAccount()
 
+  // Проверяем что контракт задеплоен
+  const isContractDeployed = PROXY_SWAP_ADDRESS !== '' && 
+                            PROXY_SWAP_ADDRESS !== '0x0000000000000000000000000000000000000001' &&
+                            PROXY_SWAP_ADDRESS !== '0x0000000000000000000000000000000000000000'
+
   // Состояние формы
   const [fromToken, setFromToken] = useState('ETH')
   const [toToken, setToToken]     = useState('USDT')
@@ -90,6 +95,10 @@ export function SwapForm() {
   const handleSwap = async () => {
     if (!isConnected) {
       toast.error('Пожалуйста, подключите кошелёк')
+      return
+    }
+    if (!isContractDeployed) {
+      toast.error('Контракт не задеплоен. Обмен временно недоступен.')
       return
     }
     if (!isAmountValid) {
@@ -253,9 +262,9 @@ export function SwapForm() {
         <button
           className="btn-exchange"
           type="submit"
-          disabled={!isAmountValid}
+          disabled={!isAmountValid || !isContractDeployed}
         >
-          Обменять
+          {!isContractDeployed ? 'Контракт не задеплоен' : 'Обменять'}
         </button>
       </form>
     </main>

@@ -22,6 +22,14 @@ export interface SwapParams {
 export async function executeSwap(params: SwapParams): Promise<string> {
   const { fromToken, toToken, amount, slippage, userAddress } = params
 
+  // Проверяем что контракт задеплоен
+  if (!PROXY_SWAP_ADDRESS || 
+      PROXY_SWAP_ADDRESS === '' || 
+      PROXY_SWAP_ADDRESS === '0x0000000000000000000000000000000000000001' ||
+      PROXY_SWAP_ADDRESS === '0x0000000000000000000000000000000000000000') {
+    throw new Error('Контракт не задеплоен. Обмен временно недоступен.')
+  }
+
   if (!window.ethereum) {
     throw new Error('MetaMask не найден')
   }
