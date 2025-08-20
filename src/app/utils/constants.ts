@@ -28,7 +28,7 @@ const network = getNetworkConfig();
 // Адреса контрактов для разных сетей
 const CONTRACT_ADDRESSES = {
   // Localhost (для разработки)
-  '31337': '0x5FbDB2315678afecb367f032d93F642f64180aa3',
+  '31337': '0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9',
   // Sepolia (для тестирования на Vercel)
   '11155111': '0x0000000000000000000000000000000000000001', // Заполнить после деплоя в Sepolia
   // Mainnet (для продакшена)
@@ -69,9 +69,9 @@ const TOKEN_ADDRESSES = {
   // Localhost (mock addresses)
   '31337': {
     'ETH': { address: '0x0000000000000000000000000000000000000000', decimals: 18, symbol: 'ETH' },
-    'WETH': { address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', decimals: 18, symbol: 'WETH' },
-    'USDC': { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', decimals: 6, symbol: 'USDC' },
-    'USDT': { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', decimals: 6, symbol: 'USDT' }
+    'WETH': { address: '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0', decimals: 18, symbol: 'WETH' },
+    'USDC': { address: '0x5FbDB2315678afecb367f032d93F642f64180aa3', decimals: 6, symbol: 'USDC' },
+    'USDT': { address: '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512', decimals: 6, symbol: 'USDT' }
   }
 };
 

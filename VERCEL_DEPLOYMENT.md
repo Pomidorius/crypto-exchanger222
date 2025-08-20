@@ -102,7 +102,7 @@ git push origin main
 
 Ваш проект теперь поддерживает автоматическое переключение между сетями:
 
-1. **Localhost (разработка):** Использует моковые токены
+1. **Localhost (разработка):** ✅ Контракт задеплоен на `0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9`
 2. **Sepolia (тестирование):** Для безопасного тестирования на Vercel
 3. **Mainnet (продакшен):** Реальные токены в production
 
@@ -111,20 +111,25 @@ git push origin main
 #### 🏠 Для Production (Mainnet):
 ```bash
 # Environment Variables на Vercel:
-NEXT_PUBLIC_PROJECT_ID = your-walletconnect-project-id
-NEXT_PUBLIC_RPC_URL = https://mainnet.infura.io/v3/your-key  
+NEXT_PUBLIC_PROJECT_ID = dummy-project-id-for-local-dev
+NEXT_PUBLIC_RPC_URL = https://mainnet.infura.io/v3/2643d99854284063b2852bea3af7e04a  
 NEXT_PUBLIC_CHAIN_ID = 1
 ```
 
 #### 🧪 Для Preview/Testing (Sepolia):
 ```bash
 # Environment Variables для preview ветки:
-NEXT_PUBLIC_PROJECT_ID = your-walletconnect-project-id
-NEXT_PUBLIC_RPC_URL = https://sepolia.infura.io/v3/your-key
+NEXT_PUBLIC_PROJECT_ID = dummy-project-id-for-local-dev
+NEXT_PUBLIC_RPC_URL = https://sepolia.infura.io/v3/2643d99854284063b2852bea3af7e04a
 NEXT_PUBLIC_CHAIN_ID = 11155111
 ```
 
 ### 🚀 Деплой контрактов:
+
+#### ✅ Localhost (готово):
+- **Адрес:** `0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9`
+- **Статус:** Задеплоен и работает
+- **Токены:** Mock USDC, USDT, WETH
 
 #### Для Sepolia (безопасное тестирование):
 ```bash
@@ -153,7 +158,7 @@ git push origin main  # Автоматический деплой на Vercel!
 
 ### 📊 Статусы сетей:
 
-- ✅ **Localhost:** Показывает "Development - Local Network"
+- ✅ **Localhost:** Показывает "Development - Local Network" (работает)
 - 🧪 **Sepolia:** Показывает "Testing - Sepolia Testnet"  
 - 🚀 **Mainnet:** Показывает "Production - Ethereum Mainnet"
 - ⚠️ **Неподдерживаемая сеть:** Показывает предупреждение
