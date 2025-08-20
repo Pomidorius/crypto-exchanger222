@@ -8,6 +8,7 @@ import { Footer } from './components/Footer'
 import { TestNetBanner } from './components/TestNetBanner'
 import { ContractStatus } from './components/ContractStatus'
 import { TestFaucet } from './components/TestFaucet'
+import { NetworkStatus } from './components/NetworkStatus'
 
 export default function Home() {
   return (
@@ -20,6 +21,9 @@ export default function Home() {
         <div className="swap-container">
           {/* Уведомление о тестовой сети */}
           <TestNetBanner />
+          
+          {/* Статус подключения к сети */}
+          <NetworkStatus />
           
           {/* Автоматический деплой для разработки */}
           <AutoDeployStatus />

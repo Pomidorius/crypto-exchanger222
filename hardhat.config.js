@@ -33,7 +33,7 @@ const config = {
       chainId: 31337,
     },
     sepolia: {
-      url: process.env.NEXT_PUBLIC_RPC_URL || "https://sepolia.infura.io/v3/2643d99854284063b2852bea3af7e04a",
+      url: process.env.NEXT_PUBLIC_RPC_URL || "https://sepolia.infura.io/v3/07818f3d4fa54707c26200df522d4863",
       accounts:
         process.env.DEPLOYER_PRIVATE_KEY && 
         process.env.DEPLOYER_PRIVATE_KEY !== "your_private_key_here" &&
@@ -43,7 +43,7 @@ const config = {
       chainId: 11155111,
     },
     mainnet: {
-      url: process.env.NEXT_PUBLIC_RPC_URL || "https://mainnet.infura.io/v3/2643d99854284063b2852bea3af7e04a",
+      url: process.env.NEXT_PUBLIC_RPC_URL || "https://mainnet.infura.io/v3/07818f3d4fa54707c26200df522d4863",
       accounts:
         process.env.DEPLOYER_PRIVATE_KEY && 
         process.env.DEPLOYER_PRIVATE_KEY !== "your_private_key_here" &&

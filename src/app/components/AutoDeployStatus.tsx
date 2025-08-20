@@ -1,21 +1,34 @@
 import { useAutoDeployCheck } from '../hooks/useAutoDeployCheck'
+import { isContractDeployed } from '../utils/constants'
 
 export function AutoDeployStatus() {
   const { isChecking, deploymentStatus, retryDeploy } = useAutoDeployCheck()
+  
+  // Отключаем автодеплой на production/Vercel
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+    return null
+  }
+
+  // Показываем только для localhost (chainId 31337)
+  const chainId = process.env.NEXT_PUBLIC_CHAIN_ID
+  if (chainId !== '31337') {
+    return null
+  }
+
+  // Если контракт уже задеплоен, показываем статус
+  if (isContractDeployed()) {
+    return (
+      <div className="auto-deploy-status deployed">
+        <p>✅ Localhost контракт готов к работе</p>
+      </div>
+    )
+  }
 
   if (isChecking) {
     return (
       <div className="auto-deploy-status checking">
         <div className="spinner"></div>
-        <p>🔍 Проверяем контракт...</p>
-      </div>
-    )
-  }
-
-  if (deploymentStatus === 'deployed') {
-    return (
-      <div className="auto-deploy-status deployed">
-        <p>✅ Контракт готов к работе</p>
+        <p>🔍 Проверяем локальный контракт...</p>
       </div>
     )
   }
@@ -33,8 +46,8 @@ export function AutoDeployStatus() {
   if (deploymentStatus === 'missing') {
     return (
       <div className="auto-deploy-status missing">
-        <p>⚠️ Контракт не найден</p>
-        <p className="note">Запустите локальный узел и попробуйте снова</p>
+        <p>⚠️ Локальный контракт не найден</p>
+        <p className="note">Запустите Hardhat node и попробуйте снова</p>
         <button onClick={retryDeploy} className="retry-button">
           🔄 Попробовать снова
         </button>

@@ -1,4 +1,14 @@
 {
   "framework": "nextjs",
-  "buildCommand": "npm run build:prod"
+  "buildCommand": "npm run build:vercel",
+  "installCommand": "npm install",
+  "outputDirectory": ".next",
+  "functions": {
+    "src/app/api/**/*.ts": {
+      "maxDuration": 10
+    }
+  },
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
