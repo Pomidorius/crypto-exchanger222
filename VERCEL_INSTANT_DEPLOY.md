@@ -25,13 +25,27 @@ git push -u origin main
 4. **Import** → **Deploy**
 
 ### 3. Добавить переменные в Vercel
-В разделе Settings → Environment Variables:
+После импорта проекта, в разделе Settings → Environment Variables добавьте:
 
+**Переменная 1:**
 ```
-NEXT_PUBLIC_PROJECT_ID = dummy-project-id-for-local-dev
-NEXT_PUBLIC_RPC_URL = https://mainnet.infura.io/v3/2643d99854284063b2852bea3af7e04a
-NEXT_PUBLIC_CHAIN_ID = 1
+Name: NEXT_PUBLIC_PROJECT_ID
+Value: dummy-project-id-for-local-dev
 ```
+
+**Переменная 2:**
+```
+Name: NEXT_PUBLIC_RPC_URL
+Value: https://mainnet.infura.io/v3/2643d99854284063b2852bea3af7e04a
+```
+
+**Переменная 3:**
+```
+Name: NEXT_PUBLIC_CHAIN_ID  
+Value: 1
+```
+
+⚠️ **Важно**: Добавляйте переменные по одной, не копируйте весь блок!
 
 ### 4. Готово! 🎉
 Ваш сайт будет доступен по ссылке: `https://crypto-exchanger-xyz.vercel.app`
