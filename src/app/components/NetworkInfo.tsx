@@ -1,7 +1,7 @@
-import { useNetwork } from 'wagmi'
+import { useChainId } from 'wagmi'
 
 export function NetworkInfo() {
-  const { chain } = useNetwork()
+  const chainId = useChainId()
   
   const getNetworkName = (chainId?: number) => {
     switch (chainId) {
@@ -30,7 +30,7 @@ export function NetworkInfo() {
     }
   }
   
-  if (!chain) {
+  if (!chainId) {
     return (
       <div className="network-info">
         <span className="text-gray-500">🔴 Не подключен к сети</span>
@@ -40,20 +40,20 @@ export function NetworkInfo() {
   
   return (
     <div className="network-info">
-      <span className={`font-medium ${getNetworkColor(chain.id)}`}>
-        {getNetworkIcon(chain.id)} {getNetworkName(chain.id)}
+      <span className={`font-medium ${getNetworkColor(chainId)}`}>
+        {getNetworkIcon(chainId)} {getNetworkName(chainId)}
       </span>
-      {chain.id === 31337 && (
+      {chainId === 31337 && (
         <span className="text-sm text-gray-500 ml-2">
           (Разработка)
         </span>
       )}
-      {chain.id === 11155111 && (
+      {chainId === 11155111 && (
         <span className="text-sm text-gray-500 ml-2">
           (Тестирование)
         </span>
       )}
-      {chain.id === 1 && (
+      {chainId === 1 && (
         <span className="text-sm text-gray-500 ml-2">
           (Продакшен)
         </span>
