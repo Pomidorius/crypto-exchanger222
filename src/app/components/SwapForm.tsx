@@ -18,6 +18,10 @@ const ERC20_ABI = [
 export function SwapForm() {
   const { address, isConnected } = useAccount()
 
+  // Отладочная информация
+  console.log('🔍 SwapForm: isContractDeployed =', isContractDeployed())
+  console.log('🔍 SwapForm: PROXY_SWAP_ADDRESS =', PROXY_SWAP_ADDRESS)
+
   // Состояние формы
   const [fromToken, setFromToken] = useState('ETH')
   const [toToken, setToToken]     = useState('USDT')

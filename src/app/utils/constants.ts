@@ -4,26 +4,24 @@
 
 // Определяем, в какой сети мы работаем
 const getNetworkConfig = () => {
-  if (typeof window === 'undefined') {
-    // Серверная сторона - используем environment variables
-    return {
-      chainId: process.env.NEXT_PUBLIC_CHAIN_ID || '1',
-      isMainnet: process.env.NEXT_PUBLIC_CHAIN_ID === '1',
-      isSepolia: process.env.NEXT_PUBLIC_CHAIN_ID === '11155111',
-      isLocalhost: process.env.NEXT_PUBLIC_CHAIN_ID === '31337'
-    };
-  }
-  
-  // Клиентская сторона - получаем из window
+  // Всегда используем environment variables для определения сети
+  const chainId = process.env.NEXT_PUBLIC_CHAIN_ID || '1';
   return {
-    chainId: process.env.NEXT_PUBLIC_CHAIN_ID || '1',
-    isMainnet: process.env.NEXT_PUBLIC_CHAIN_ID === '1',
-    isSepolia: process.env.NEXT_PUBLIC_CHAIN_ID === '11155111',
-    isLocalhost: process.env.NEXT_PUBLIC_CHAIN_ID === '31337'
+    chainId,
+    isMainnet: chainId === '1',
+    isSepolia: chainId === '11155111',
+    isLocalhost: chainId === '31337'
   };
 };
 
 const network = getNetworkConfig();
+
+// Отладочная информация
+console.log('🔍 Network config:', {
+  chainId: network.chainId,
+  isLocalhost: network.isLocalhost,
+  NEXT_PUBLIC_CHAIN_ID: process.env.NEXT_PUBLIC_CHAIN_ID
+});
 
 // Адреса контрактов для разных сетей
 const CONTRACT_ADDRESSES = {
@@ -37,9 +35,15 @@ const CONTRACT_ADDRESSES = {
 
 export const PROXY_SWAP_ADDRESS = CONTRACT_ADDRESSES[network.chainId as keyof typeof CONTRACT_ADDRESSES] || '0x0000000000000000000000000000000000000001';
 
+console.log('🔍 Contract address:', PROXY_SWAP_ADDRESS, 'for chainId:', network.chainId);
+
 // Константа для проверки что контракт задеплоен
 export const TEMP_CONTRACT_ADDRESS = '0x0000000000000000000000000000000000000001';
-export const isContractDeployed = () => PROXY_SWAP_ADDRESS !== TEMP_CONTRACT_ADDRESS;
+export const isContractDeployed = () => {
+  const deployed = PROXY_SWAP_ADDRESS !== TEMP_CONTRACT_ADDRESS;
+  console.log('🔍 isContractDeployed called:', deployed, 'address:', PROXY_SWAP_ADDRESS);
+  return deployed;
+};
 
 /**
  * Карта токенов для разных сетей
@@ -76,6 +80,8 @@ const TOKEN_ADDRESSES = {
 };
 
 export const TokenMap: Record<string, TokenInfo> = TOKEN_ADDRESSES[network.chainId as keyof typeof TOKEN_ADDRESSES] || TOKEN_ADDRESSES['1'];
+
+console.log('🔍 Token map for chainId', network.chainId, ':', TokenMap);
 
 // Uniswap адреса для разных сетей
 const UNISWAP_ADDRESSES = {
