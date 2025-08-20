@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 contract ImprovedProxySwap is Ownable, ReentrancyGuard {
     
@@ -30,7 +30,7 @@ contract ImprovedProxySwap is Ownable, ReentrancyGuard {
     
     event FeeWithdrawn(address indexed token, uint256 amount, address indexed to);
     
-    constructor() {
+    constructor() Ownable(msg.sender) {
         // Ownable автоматически устанавливает msg.sender как owner
     }
     
