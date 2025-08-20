@@ -21,7 +21,8 @@ export function useAutoDeployCheck() {
       // Проверяем, задеплоен ли контракт
       if (isContractDeployed()) {
         // Дополнительная проверка - существует ли контракт в сети
-        const provider = new (await import('ethers')).ethers.JsonRpcProvider('http://127.0.0.1:8545')
+        const { providers } = await import('ethers')
+        const provider = new providers.JsonRpcProvider('http://127.0.0.1:8545')
         const code = await provider.getCode(PROXY_SWAP_ADDRESS)
         
         if (code !== '0x') {
@@ -36,14 +37,15 @@ export function useAutoDeployCheck() {
       
       // Проверяем, запущен ли локальный узел
       try {
-        const provider = new (await import('ethers')).ethers.JsonRpcProvider('http://127.0.0.1:8545')
+        const { providers } = await import('ethers')
+        const provider = new providers.JsonRpcProvider('http://127.0.0.1:8545')
         await provider.getNetwork()
         
         // Узел запущен, пробуем автодеплой
         setDeploymentStatus('deploying')
         await triggerAutoDeploy()
         
-      } catch (nodeError) {
+      } catch {
         // Локальный узел не запущен
         setDeploymentStatus('missing')
       }
