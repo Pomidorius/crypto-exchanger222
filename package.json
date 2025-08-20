@@ -18,6 +18,7 @@
     "deploy:improved-mainnet": "npx hardhat run scripts/deploy-improved.js --network mainnet",
     "update:address": "node scripts/update-contract-address.js",
     "check:balances": "npx hardhat run scripts/check-balances.js --network localhost",
+    "prepare:vercel": "node scripts/prepare-vercel.js",
     "check:wallet": "node scripts/check-wallet.js",
     "check:deployment": "npx hardhat run scripts/check-deployment-readiness.js --network sepolia",
     "auto:deploy": "npx hardhat run scripts/auto-deploy.js --network localhost",

@@ -1,16 +1,48 @@
 /**  
- * Адрес ProxySwap, задеплоенного у вас локально или в Sepolia/Goerli.  
- * Замените на нужный адрес после деплоя.  
+ * Адрес ProxySwap для разных сетей
  */
-// Временный адрес для предотвращения ENS ошибки (замените после деплоя)
-export const PROXY_SWAP_ADDRESS = '0x0000000000000000000000000000000000000001';
+
+// Определяем, в какой сети мы работаем
+const getNetworkConfig = () => {
+  if (typeof window === 'undefined') {
+    // Серверная сторона - используем environment variables
+    return {
+      chainId: process.env.NEXT_PUBLIC_CHAIN_ID || '1',
+      isMainnet: process.env.NEXT_PUBLIC_CHAIN_ID === '1',
+      isSepolia: process.env.NEXT_PUBLIC_CHAIN_ID === '11155111',
+      isLocalhost: process.env.NEXT_PUBLIC_CHAIN_ID === '31337'
+    };
+  }
+  
+  // Клиентская сторона - получаем из window
+  return {
+    chainId: process.env.NEXT_PUBLIC_CHAIN_ID || '1',
+    isMainnet: process.env.NEXT_PUBLIC_CHAIN_ID === '1',
+    isSepolia: process.env.NEXT_PUBLIC_CHAIN_ID === '11155111',
+    isLocalhost: process.env.NEXT_PUBLIC_CHAIN_ID === '31337'
+  };
+};
+
+const network = getNetworkConfig();
+
+// Адреса контрактов для разных сетей
+const CONTRACT_ADDRESSES = {
+  // Localhost (для разработки)
+  '31337': '0x5FbDB2315678afecb367f032d93F642f64180aa3',
+  // Sepolia (для тестирования на Vercel)
+  '11155111': '0x0000000000000000000000000000000000000001', // Заполнить после деплоя в Sepolia
+  // Mainnet (для продакшена)
+  '1': '0x0000000000000000000000000000000000000001' // Заполнить после деплоя в mainnet
+};
+
+export const PROXY_SWAP_ADDRESS = CONTRACT_ADDRESSES[network.chainId as keyof typeof CONTRACT_ADDRESSES] || '0x0000000000000000000000000000000000000001';
 
 // Константа для проверки что контракт задеплоен
 export const TEMP_CONTRACT_ADDRESS = '0x0000000000000000000000000000000000000001';
 export const isContractDeployed = () => PROXY_SWAP_ADDRESS !== TEMP_CONTRACT_ADDRESS;
 
 /**
- * Карта токенов для локального тестирования
+ * Карта токенов для разных сетей
  */
 export interface TokenInfo {
   address: string
@@ -18,33 +50,60 @@ export interface TokenInfo {
   symbol: string
 }
 
-export const TokenMap: Record<string, TokenInfo> = {
-  'ETH': {
-    address: '0x0000000000000000000000000000000000000000',
-    decimals: 18,
-    symbol: 'ETH'
+// Токены для разных сетей
+const TOKEN_ADDRESSES = {
+  // Mainnet
+  '1': {
+    'ETH': { address: '0x0000000000000000000000000000000000000000', decimals: 18, symbol: 'ETH' },
+    'WETH': { address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', decimals: 18, symbol: 'WETH' },
+    'USDC': { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', decimals: 6, symbol: 'USDC' },
+    'USDT': { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', decimals: 6, symbol: 'USDT' }
   },
-  'WETH': {
-    address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-    decimals: 18,
-    symbol: 'WETH'
+  // Sepolia testnet
+  '11155111': {
+    'ETH': { address: '0x0000000000000000000000000000000000000000', decimals: 18, symbol: 'ETH' },
+    'WETH': { address: '0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14', decimals: 18, symbol: 'WETH' },
+    'USDC': { address: '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238', decimals: 6, symbol: 'USDC' },
+    'USDT': { address: '0x7169D38820dfd117C3FA1f22a697dBA58d90BA06', decimals: 6, symbol: 'USDT' }
   },
-  'USDC': {
-    address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-    decimals: 6,
-    symbol: 'USDC'
-  },
-  'USDT': {
-    address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-    decimals: 6,
-    symbol: 'USDT'
+  // Localhost (mock addresses)
+  '31337': {
+    'ETH': { address: '0x0000000000000000000000000000000000000000', decimals: 18, symbol: 'ETH' },
+    'WETH': { address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', decimals: 18, symbol: 'WETH' },
+    'USDC': { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', decimals: 6, symbol: 'USDC' },
+    'USDT': { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', decimals: 6, symbol: 'USDT' }
   }
 };
 
-// Uniswap Routers and Quoter (mainnet)
-export const UNISWAP_V2_ROUTER = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D';
-export const UNISWAP_V3_ROUTER = '0xE592427A0AEce92De3Edee1F18E0157C05861564';
-export const UNISWAP_V3_QUOTER = '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6';
+export const TokenMap: Record<string, TokenInfo> = TOKEN_ADDRESSES[network.chainId as keyof typeof TOKEN_ADDRESSES] || TOKEN_ADDRESSES['1'];
+
+// Uniswap адреса для разных сетей
+const UNISWAP_ADDRESSES = {
+  // Mainnet
+  '1': {
+    V2_ROUTER: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
+    V3_ROUTER: '0xE592427A0AEce92De3Edee1F18E0157C05861564',
+    V3_QUOTER: '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6'
+  },
+  // Sepolia testnet
+  '11155111': {
+    V2_ROUTER: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
+    V3_ROUTER: '0xE592427A0AEce92De3Edee1F18E0157C05861564',
+    V3_QUOTER: '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6'
+  },
+  // Localhost (same as mainnet for testing)
+  '31337': {
+    V2_ROUTER: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
+    V3_ROUTER: '0xE592427A0AEce92De3Edee1F18E0157C05861564',
+    V3_QUOTER: '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6'
+  }
+};
+
+const uniswapConfig = UNISWAP_ADDRESSES[network.chainId as keyof typeof UNISWAP_ADDRESSES] || UNISWAP_ADDRESSES['1'];
+
+export const UNISWAP_V2_ROUTER = uniswapConfig.V2_ROUTER;
+export const UNISWAP_V3_ROUTER = uniswapConfig.V3_ROUTER;
+export const UNISWAP_V3_QUOTER = uniswapConfig.V3_QUOTER;
 
 /**
  * Минимальный ABI для SimpleProxySwap — упрощенная версия для локального тестирования.
