@@ -5,6 +5,7 @@ import { ImprovedSwapForm } from './components/ImprovedSwapForm'
 import { PortfolioBar } from './components/PortfolioBar'
 import { Footer } from './components/Footer'
 import { TestNetBanner } from './components/TestNetBanner'
+import { ContractStatus } from './components/ContractStatus'
 
 export default function Home() {
   return (
@@ -17,6 +18,9 @@ export default function Home() {
         <div className="swap-container">
           {/* Уведомление о тестовой сети */}
           <TestNetBanner />
+          
+          {/* Статус контракта */}
+          <ContractStatus />
           
           <div className="swap-card">
             <div className="swap-header">
