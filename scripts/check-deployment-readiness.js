@@ -5,12 +5,17 @@ async function checkDeploymentReadiness() {
   console.log("🔍 Checking deployment readiness for Sepolia...\n");
   
   // Проверяем наличие приватного ключа
-  if (!process.env.DEPLOYER_PRIVATE_KEY || process.env.DEPLOYER_PRIVATE_KEY === "your_private_key_here") {
-    console.log("❌ DEPLOYER_PRIVATE_KEY not set in .env file");
+  if (!process.env.DEPLOYER_PRIVATE_KEY || 
+      process.env.DEPLOYER_PRIVATE_KEY === "your_private_key_here" ||
+      process.env.DEPLOYER_PRIVATE_KEY.length !== 64) {
+    console.log("❌ DEPLOYER_PRIVATE_KEY not properly set in .env file");
     console.log("📝 Steps to fix:");
-    console.log("1. Get your MetaMask private key (Settings → Security & Privacy → Show Private Key)");
-    console.log("2. Edit .env file and replace 'your_private_key_here' with your actual private key");
-    console.log("3. Make sure your wallet has Sepolia ETH (get from https://sepoliafaucet.com/)");
+    console.log("1. Open MetaMask → Settings → Security & Privacy → Show Private Key");
+    console.log("2. Copy your private key (should be 64 characters long)");
+    console.log("3. Edit .env file:");
+    console.log("   DEPLOYER_PRIVATE_KEY=your_64_character_private_key");
+    console.log("4. Get Sepolia ETH from https://sepoliafaucet.com/");
+    console.log("5. ⚠️  NEVER share or commit your private key!");
     return false;
   }
   
