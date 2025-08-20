@@ -1,13 +1,18 @@
 const { spawn } = require('child_process');
 const path = require('path');
-const fs = require('fs');
+const os = require('os');
 
 console.log("🚀 Starting development environment with auto-deploy...\n");
+
+// Определяем команду npm для Windows/Unix
+const isWindows = os.platform() === 'win32';
+const npmCmd = isWindows ? 'npm.cmd' : 'npm';
+const npxCmd = isWindows ? 'npx.cmd' : 'npx';
 
 async function startWithAutoDeploy() {
   // 1. Сначала запускаем Hardhat node
   console.log("📡 Starting Hardhat local node...");
-  const hardhatProcess = spawn('npx', ['hardhat', 'node'], {
+  const hardhatProcess = spawn(npxCmd, ['hardhat', 'node'], {
     cwd: process.cwd(),
     stdio: 'pipe'
   });
@@ -38,7 +43,7 @@ async function startWithAutoDeploy() {
   async function deployContract() {
     console.log("\n🤖 Auto-deploying contract...");
     
-    const deployProcess = spawn('npx', ['hardhat', 'run', 'scripts/auto-deploy.js', '--network', 'localhost'], {
+    const deployProcess = spawn(npxCmd, ['hardhat', 'run', 'scripts/auto-deploy.js', '--network', 'localhost'], {
       cwd: process.cwd(),
       stdio: 'pipe'
     });
@@ -66,7 +71,7 @@ async function startWithAutoDeploy() {
   function startNextJS() {
     console.log("\n🌐 Starting Next.js development server...");
     
-    const nextProcess = spawn('npm', ['run', 'dev'], {
+    const nextProcess = spawn(npmCmd, ['run', 'dev'], {
       cwd: process.cwd(),
       stdio: 'inherit'
     });

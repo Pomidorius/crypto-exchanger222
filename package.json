@@ -21,7 +21,9 @@
     "check:wallet": "node scripts/check-wallet.js",
     "check:deployment": "npx hardhat run scripts/check-deployment-readiness.js --network sepolia",
     "auto:deploy": "npx hardhat run scripts/auto-deploy.js --network localhost",
-    "dev:auto": "node scripts/start-with-deploy.js",
+    "dev:auto": "node scripts/windows-start.js",
+    "dev:spawn": "node scripts/start-with-deploy.js",
+    "dev:simple": "node scripts/simple-start.js",
     "dev:full": "concurrently \"npm run node\" \"sleep 3 && npm run auto:deploy\" \"sleep 6 && npm run dev\"",
     "mainnet:deploy": "npm run deploy:mainnet && npm run update:address",
     "mainnet:deploy-improved": "npm run deploy:improved-mainnet && npm run update:address"

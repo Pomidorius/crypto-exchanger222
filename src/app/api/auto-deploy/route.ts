@@ -43,7 +43,11 @@ function runAutoDeploy(): Promise<{ success: boolean; contractAddress?: string; 
   return new Promise((resolve) => {
     const scriptPath = path.join(process.cwd(), 'scripts', 'auto-deploy.js')
     
-    const deployProcess = spawn('npx', ['hardhat', 'run', scriptPath, '--network', 'localhost'], {
+    // Определяем команду для Windows/Unix
+    const isWindows = process.platform === 'win32'
+    const npxCmd = isWindows ? 'npx.cmd' : 'npx'
+    
+    const deployProcess = spawn(npxCmd, ['hardhat', 'run', scriptPath, '--network', 'localhost'], {
       cwd: process.cwd(),
       stdio: 'pipe'
     })
