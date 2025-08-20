@@ -1065,3 +1065,113 @@ html, body {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
+
+/* Test Faucet Styles */
+.test-faucet {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.faucet-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.faucet-header h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.faucet-header p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.faucet-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.faucet-btn {
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+  border: 1px solid var(--border-primary);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.faucet-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--border-primary));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.faucet-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.eth-btn:hover:not(:disabled) {
+  border-color: #627eea;
+  box-shadow: 0 8px 20px rgba(98, 126, 234, 0.3);
+}
+
+.usdt-btn:hover:not(:disabled) {
+  border-color: #26a17b;
+  box-shadow: 0 8px 20px rgba(38, 161, 123, 0.3);
+}
+
+.usdc-btn:hover:not(:disabled) {
+  border-color: #2775ca;
+  box-shadow: 0 8px 20px rgba(39, 117, 202, 0.3);
+}
+
+.dai-btn:hover:not(:disabled) {
+  border-color: #f5ac37;
+  box-shadow: 0 8px 20px rgba(245, 172, 55, 0.3);
+}
+
+.faucet-info {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.faucet-info p {
+  margin-bottom: 0.5rem;
+}
+
+.faucet-info p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .faucet-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .faucet-btn {
+    padding: 0.875rem;
+    font-size: 0.8rem;
+  }
+}

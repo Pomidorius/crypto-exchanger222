@@ -7,6 +7,7 @@ import { PortfolioBar } from './components/PortfolioBar'
 import { Footer } from './components/Footer'
 import { TestNetBanner } from './components/TestNetBanner'
 import { ContractStatus } from './components/ContractStatus'
+import { TestFaucet } from './components/TestFaucet'
 
 export default function Home() {
   return (
@@ -25,6 +26,9 @@ export default function Home() {
           
           {/* Статус контракта */}
           <ContractStatus />
+          
+          {/* Тестовый кран для получения токенов */}
+          <TestFaucet />
           
           <div className="swap-card">
             <div className="swap-header">
