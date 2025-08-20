@@ -1076,6 +1076,28 @@ html, body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+.test-faucet.mainnet-warning {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1));
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+.mainnet-info {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.mainnet-info p {
+  margin-bottom: 0.5rem;
+  color: #fecaca;
+}
+
+.mainnet-info p:last-child {
+  margin-bottom: 0;
+}
+
 .faucet-header {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -1091,6 +1113,50 @@ html, body {
 .faucet-header p {
   font-size: 0.875rem;
   color: var(--text-secondary);
+}
+
+.faucet-links {
+  margin-bottom: 1.5rem;
+}
+
+.faucet-section {
+  margin-bottom: 1.5rem;
+}
+
+.faucet-section h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.faucet-buttons-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.faucet-link-btn {
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.faucet-link-btn:hover {
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--border-primary));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  color: var(--text-primary);
 }
 
 .faucet-buttons {
@@ -1165,6 +1231,16 @@ html, body {
   margin-bottom: 0;
 }
 
+.address-code {
+  background: var(--bg-tertiary);
+  color: var(--accent-blue);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  word-break: break-all;
+}
+
 @media (max-width: 768px) {
   .faucet-buttons {
     grid-template-columns: 1fr;
@@ -1172,6 +1248,15 @@ html, body {
   
   .faucet-btn {
     padding: 0.875rem;
+    font-size: 0.8rem;
+  }
+  
+  .faucet-buttons-links {
+    flex-direction: column;
+  }
+  
+  .faucet-link-btn {
+    padding: 0.75rem;
     font-size: 0.8rem;
   }
 }
