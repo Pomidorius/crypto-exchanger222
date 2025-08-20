@@ -1,5 +1,6 @@
 'use client'
 
+import { AutoDeployStatus } from './components/AutoDeployStatus'
 import { Header } from './components/Header'
 import { ImprovedSwapForm } from './components/ImprovedSwapForm'
 import { PortfolioBar } from './components/PortfolioBar'
@@ -18,6 +19,9 @@ export default function Home() {
         <div className="swap-container">
           {/* Уведомление о тестовой сети */}
           <TestNetBanner />
+          
+          {/* Автоматический деплой для разработки */}
+          <AutoDeployStatus />
           
           {/* Статус контракта */}
           <ContractStatus />
