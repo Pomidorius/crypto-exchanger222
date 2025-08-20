@@ -5,6 +5,10 @@
 // Временный адрес для предотвращения ENS ошибки (замените после деплоя)
 export const PROXY_SWAP_ADDRESS = '0x0000000000000000000000000000000000000001';
 
+// Константа для проверки что контракт задеплоен
+export const TEMP_CONTRACT_ADDRESS = '0x0000000000000000000000000000000000000001';
+export const isContractDeployed = () => PROXY_SWAP_ADDRESS !== TEMP_CONTRACT_ADDRESS;
+
 /**
  * Карта токенов для локального тестирования
  */

@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react'
 import { useAccount, useBalance } from 'wagmi'
 import { quoteExactInput, TokenMap } from '../utils/uniswap'
-import { PROXY_SWAP_ADDRESS, ProxySwapAbi } from '../utils/constants'
+import { PROXY_SWAP_ADDRESS, ProxySwapAbi, isContractDeployed } from '../utils/constants'
 import { providers, Contract, BigNumber } from 'ethers'
 import { parseUnits } from 'ethers/lib/utils'
 import toast from 'react-hot-toast'
@@ -17,11 +17,6 @@ const ERC20_ABI = [
 
 export function SwapForm() {
   const { address, isConnected } = useAccount()
-
-  // Проверяем что контракт задеплоен
-  const isContractDeployed = PROXY_SWAP_ADDRESS !== '' && 
-                            PROXY_SWAP_ADDRESS !== '0x0000000000000000000000000000000000000001' &&
-                            PROXY_SWAP_ADDRESS !== '0x0000000000000000000000000000000000000000'
 
   // Состояние формы
   const [fromToken, setFromToken] = useState('ETH')
@@ -97,7 +92,7 @@ export function SwapForm() {
       toast.error('Пожалуйста, подключите кошелёк')
       return
     }
-    if (!isContractDeployed) {
+    if (!isContractDeployed()) {
       toast.error('Контракт не задеплоен. Обмен временно недоступен.')
       return
     }
@@ -262,9 +257,9 @@ export function SwapForm() {
         <button
           className="btn-exchange"
           type="submit"
-          disabled={!isAmountValid || !isContractDeployed}
+          disabled={!isAmountValid || !isContractDeployed()}
         >
-          {!isContractDeployed ? 'Контракт не задеплоен' : 'Обменять'}
+          {!isContractDeployed() ? 'Контракт не задеплоен' : 'Обменять'}
         </button>
       </form>
     </main>

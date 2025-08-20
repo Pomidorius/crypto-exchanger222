@@ -1,11 +1,9 @@
 'use client'
 
-import { PROXY_SWAP_ADDRESS } from '../utils/constants'
+import { isContractDeployed } from '../utils/constants'
 
 export function ContractStatus() {
-  const isContractDeployed = PROXY_SWAP_ADDRESS !== '' && PROXY_SWAP_ADDRESS !== '0x0000000000000000000000000000000000000001'
-  
-  if (isContractDeployed) return null
+  if (isContractDeployed()) return null
 
   return (
     <div className="bg-orange-100 border border-orange-400 p-4 rounded-lg mb-6 shadow-sm">
