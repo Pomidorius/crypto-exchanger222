@@ -1,7 +1,7 @@
 // src/app/utils/swap.ts
 import { providers, Contract, BigNumber } from 'ethers'
 import { parseUnits } from 'ethers/lib/utils'
-import { PROXY_SWAP_ADDRESS, ProxySwapAbi, TokenMap } from './constants'
+import { PROXY_SWAP_ADDRESS, ProxySwapAbi, TokenMap, isContractDeployed } from './constants'
 import { quoteExactInput } from './uniswap'
 
 // Минимальный ABI ERC20 для allowance/approve
@@ -21,6 +21,11 @@ export interface SwapParams {
 
 export async function executeSwap(params: SwapParams): Promise<string> {
   const { fromToken, toToken, amount, slippage, userAddress } = params
+
+  // Проверяем что контракт задеплоен
+  if (!isContractDeployed()) {
+    throw new Error('Контракт не задеплоен. Обмен временно недоступен.')
+  }
 
   if (!window.ethereum) {
     throw new Error('MetaMask не найден')

@@ -2,8 +2,12 @@
  * Адрес ProxySwap, задеплоенного у вас локально или в Sepolia/Goerli.  
  * Замените на нужный адрес после деплоя.  
  */
-// Укажите адрес ProxySwap после деплоя в mainnet
-export const PROXY_SWAP_ADDRESS = '';
+// Временный адрес для предотвращения ENS ошибки (замените после деплоя)
+export const PROXY_SWAP_ADDRESS = '0x0000000000000000000000000000000000000001';
+
+// Константа для проверки что контракт задеплоен
+export const TEMP_CONTRACT_ADDRESS = '0x0000000000000000000000000000000000000001';
+export const isContractDeployed = () => PROXY_SWAP_ADDRESS !== TEMP_CONTRACT_ADDRESS;
 
 /**
  * Карта токенов для локального тестирования

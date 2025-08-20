@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react'
 import { useAccount, useBalance } from 'wagmi'
 import { quoteExactInput, TokenMap } from '../utils/uniswap'
-import { PROXY_SWAP_ADDRESS, ProxySwapAbi } from '../utils/constants'
+import { PROXY_SWAP_ADDRESS, ProxySwapAbi, isContractDeployed } from '../utils/constants'
 import { providers, Contract, BigNumber } from 'ethers'
 import { parseUnits } from 'ethers/lib/utils'
 import toast from 'react-hot-toast'
@@ -90,6 +90,10 @@ export function SwapForm() {
   const handleSwap = async () => {
     if (!isConnected) {
       toast.error('Пожалуйста, подключите кошелёк')
+      return
+    }
+    if (!isContractDeployed()) {
+      toast.error('Контракт не задеплоен. Обмен временно недоступен.')
       return
     }
     if (!isAmountValid) {
@@ -253,9 +257,9 @@ export function SwapForm() {
         <button
           className="btn-exchange"
           type="submit"
-          disabled={!isAmountValid}
+          disabled={!isAmountValid || !isContractDeployed()}
         >
-          Обменять
+          {!isContractDeployed() ? 'Контракт не задеплоен' : 'Обменять'}
         </button>
       </form>
     </main>
