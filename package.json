@@ -19,6 +19,7 @@
     "update:address": "node scripts/update-contract-address.js",
     "check:balances": "npx hardhat run scripts/check-balances.js --network localhost",
     "check:wallet": "node scripts/check-wallet.js",
+    "check:deployment": "npx hardhat run scripts/check-deployment-readiness.js --network sepolia",
     "dev:full": "concurrently \"npm run node\" \"npm run dev\"",
     "mainnet:deploy": "npm run deploy:mainnet && npm run update:address",
     "mainnet:deploy-improved": "npm run deploy:improved-mainnet && npm run update:address"

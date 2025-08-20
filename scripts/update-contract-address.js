@@ -3,17 +3,26 @@ const path = require('path');
 
 async function updateProxySwapAddress() {
   try {
-    // Читаем информацию о деплойменте
-    const deploymentPath = path.join(__dirname, '..', 'mainnet-deployment.json');
+    // Ищем deployment файлы (сначала localhost, потом mainnet)
+    let deploymentPath = path.join(__dirname, '..', 'localhost-deployment.json');
+    let networkName = 'testnet/localhost';
+    
     if (!fs.existsSync(deploymentPath)) {
-      console.error('❌ mainnet-deployment.json not found. Deploy contract first.');
+      deploymentPath = path.join(__dirname, '..', 'mainnet-deployment.json');
+      networkName = 'mainnet';
+    }
+    
+    if (!fs.existsSync(deploymentPath)) {
+      console.error('❌ No deployment file found. Deploy contract first with:');
+      console.error('   npm run deploy:sepolia (for testnet)');
+      console.error('   npm run deploy:mainnet (for mainnet)');
       return;
     }
     
     const deployment = JSON.parse(fs.readFileSync(deploymentPath, 'utf8'));
     const contractAddress = deployment.contractAddress;
     
-    console.log('📍 Contract address from deployment:', contractAddress);
+    console.log(`📍 Contract address from ${networkName}:`, contractAddress);
     
     // Читаем constants.ts
     const constantsPath = path.join(__dirname, '..', 'src', 'app', 'utils', 'constants.ts');
