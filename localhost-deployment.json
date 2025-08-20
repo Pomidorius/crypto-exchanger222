@@ -1,0 +1,14 @@
+{
+  "network": "localhost",
+  "contractAddress": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
+  "deployerAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  "deploymentTime": "2025-08-20T16:06:43.894Z",
+  "transactionHash": "0x2f8e12d76ba870015339ca3f4e6754a4e20f81330611ab9bfd78c8e491043a4e",
+  "contractType": "ImprovedProxySwap",
+  "autoDeployed": true,
+  "mockTokens": {
+    "USDC": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
+    "USDT": "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f",
+    "DAI": "0x4A679253410272dd5232B3Ff7cF5dbB88f295319"
+  }
+}

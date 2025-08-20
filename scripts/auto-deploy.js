@@ -36,40 +36,40 @@ async function autoDeploy() {
     console.log("📍 Deployer address:", deployer.address);
     
     const balance = await ethers.provider.getBalance(deployer.address);
-    console.log("💰 Deployer balance:", ethers.formatEther(balance), "ETH");
+    console.log("💰 Deployer balance:", ethers.utils.formatEther(balance), "ETH");
     
     // 1. Деплоим мок токены для localhost
     console.log("📦 Deploying mock tokens...");
     const MockERC20 = await ethers.getContractFactory("MockERC20");
     
     const mockUSDC = await MockERC20.deploy("Mock USD Coin", "USDC");
-    await mockUSDC.waitForDeployment();
-    const usdcAddress = await mockUSDC.getAddress();
+    await mockUSDC.deployed();
+    const usdcAddress = mockUSDC.address;
     console.log("✅ Mock USDC deployed:", usdcAddress);
     
     const mockUSDT = await MockERC20.deploy("Mock Tether", "USDT");
-    await mockUSDT.waitForDeployment();
-    const usdtAddress = await mockUSDT.getAddress();
+    await mockUSDT.deployed();
+    const usdtAddress = mockUSDT.address;
     console.log("✅ Mock USDT deployed:", usdtAddress);
     
     const mockDAI = await MockERC20.deploy("Mock Dai Stablecoin", "DAI");
-    await mockDAI.waitForDeployment();
-    const daiAddress = await mockDAI.getAddress();
+    await mockDAI.deployed();
+    const daiAddress = mockDAI.address;
     console.log("✅ Mock DAI deployed:", daiAddress);
     
     // 2. Деплоим ImprovedProxySwap
     console.log("💱 Deploying ImprovedProxySwap...");
     const ImprovedProxySwap = await ethers.getContractFactory("ImprovedProxySwap");
     const contract = await ImprovedProxySwap.deploy();
-    await contract.waitForDeployment();
+    await contract.deployed();
     
-    const address = await contract.getAddress();
+    const address = contract.address;
     console.log("✅ New contract deployed:", address);
     
     // 3. Минтим токены для тестирования
-    console.log("� Minting test tokens...");
-    const mintAmount = ethers.parseUnits("1000000", 6); // 1M токенов для USDC/USDT
-    const daiMintAmount = ethers.parseUnits("1000000", 18); // 1M DAI
+    console.log("💰 Minting test tokens...");
+    const mintAmount = ethers.utils.parseUnits("1000000", 6); // 1M токенов для USDC/USDT
+    const daiMintAmount = ethers.utils.parseUnits("1000000", 18); // 1M DAI
     
     // Минтим на контракт для ликвидности
     await mockUSDC.mint(address, mintAmount);
@@ -77,9 +77,9 @@ async function autoDeploy() {
     await mockDAI.mint(address, daiMintAmount);
     
     // Минтим деплоеру для тестирования
-    await mockUSDC.mint(deployer.address, ethers.parseUnits("10000", 6));
-    await mockUSDT.mint(deployer.address, ethers.parseUnits("10000", 6));
-    await mockDAI.mint(deployer.address, ethers.parseUnits("10000", 18));
+    await mockUSDC.mint(deployer.address, ethers.utils.parseUnits("10000", 6));
+    await mockUSDT.mint(deployer.address, ethers.utils.parseUnits("10000", 6));
+    await mockDAI.mint(deployer.address, ethers.utils.parseUnits("10000", 18));
     
     console.log("💰 Test tokens minted successfully");
     
@@ -90,21 +90,21 @@ async function autoDeploy() {
     
     try {
       // Примерные курсы для тестирования (ETH = $2500)
-      await contract.setExchangeRate(ETH_ADDRESS, usdcAddress, ethers.parseUnits("2500", 6));
-      await contract.setExchangeRate(ETH_ADDRESS, usdtAddress, ethers.parseUnits("2500", 6));
-      await contract.setExchangeRate(ETH_ADDRESS, daiAddress, ethers.parseUnits("2500", 18));
+      await contract.setExchangeRate(ETH_ADDRESS, usdcAddress, ethers.utils.parseUnits("2500", 6));
+      await contract.setExchangeRate(ETH_ADDRESS, usdtAddress, ethers.utils.parseUnits("2500", 6));
+      await contract.setExchangeRate(ETH_ADDRESS, daiAddress, ethers.utils.parseUnits("2500", 18));
       
-      await contract.setExchangeRate(usdcAddress, ETH_ADDRESS, ethers.parseEther("0.0004"));
-      await contract.setExchangeRate(usdtAddress, ETH_ADDRESS, ethers.parseEther("0.0004"));
-      await contract.setExchangeRate(daiAddress, ETH_ADDRESS, ethers.parseEther("0.0004"));
+      await contract.setExchangeRate(usdcAddress, ETH_ADDRESS, ethers.utils.parseEther("0.0004"));
+      await contract.setExchangeRate(usdtAddress, ETH_ADDRESS, ethers.utils.parseEther("0.0004"));
+      await contract.setExchangeRate(daiAddress, ETH_ADDRESS, ethers.utils.parseEther("0.0004"));
       
       // Токен -> токен (1:1 для стейблкоинов)
-      await contract.setExchangeRate(usdcAddress, usdtAddress, ethers.parseUnits("1", 6));
-      await contract.setExchangeRate(usdtAddress, usdcAddress, ethers.parseUnits("1", 6));
-      await contract.setExchangeRate(usdcAddress, daiAddress, ethers.parseUnits("1", 18));
-      await contract.setExchangeRate(daiAddress, usdcAddress, ethers.parseUnits("1", 6));
-      await contract.setExchangeRate(usdtAddress, daiAddress, ethers.parseUnits("1", 18));
-      await contract.setExchangeRate(daiAddress, usdtAddress, ethers.parseUnits("1", 6));
+      await contract.setExchangeRate(usdcAddress, usdtAddress, ethers.utils.parseUnits("1", 6));
+      await contract.setExchangeRate(usdtAddress, usdcAddress, ethers.utils.parseUnits("1", 6));
+      await contract.setExchangeRate(usdcAddress, daiAddress, ethers.utils.parseUnits("1", 18));
+      await contract.setExchangeRate(daiAddress, usdcAddress, ethers.utils.parseUnits("1", 6));
+      await contract.setExchangeRate(usdtAddress, daiAddress, ethers.utils.parseUnits("1", 18));
+      await contract.setExchangeRate(daiAddress, usdtAddress, ethers.utils.parseUnits("1", 6));
       
       console.log("✅ Exchange rates configured");
     } catch {
@@ -117,7 +117,7 @@ async function autoDeploy() {
       contractAddress: address,
       deployerAddress: deployer.address,
       deploymentTime: new Date().toISOString(),
-      transactionHash: contract.deploymentTransaction()?.hash,
+      transactionHash: contract.deployTransaction?.hash,
       contractType: "ImprovedProxySwap",
       autoDeployed: true,
       mockTokens: {
