@@ -7,7 +7,7 @@ import '@rainbow-me/rainbowkit/styles.css'
 
 import { WagmiProvider }                        from 'wagmi'
 import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit'
-import { mainnet, polygon, arbitrum, hardhat }  from 'wagmi/chains'
+import { mainnet, polygon, arbitrum, hardhat, sepolia }  from 'wagmi/chains'
 import { http }                                 from 'viem'
 
 import { QueryClient, QueryClientProvider }      from '@tanstack/react-query'
@@ -22,16 +22,25 @@ const queryClient = new QueryClient()
 const wagmiConfig = getDefaultConfig({
   appName: 'Crypto Exchanger',
   projectId,
-  chains: chainId === 1 ? [mainnet] : chainId === 31337 ? [hardhat] : [mainnet, polygon, arbitrum, hardhat],
+  chains: chainId === 1 
+    ? [mainnet] 
+    : chainId === 31337 
+    ? [hardhat] 
+    : chainId === 11155111 
+    ? [sepolia]
+    : [mainnet, polygon, arbitrum, hardhat, sepolia],
   transports: chainId === 1 
     ? { [mainnet.id]: http(rpcUrl) }
     : chainId === 31337 
     ? { [hardhat.id]: http(rpcUrl) }
+    : chainId === 11155111
+    ? { [sepolia.id]: http(rpcUrl) }
     : {
         [mainnet.id]: http(),
         [polygon.id]: http(),
         [arbitrum.id]: http(),
         [hardhat.id]: http('http://127.0.0.1:8545'),
+        [sepolia.id]: http(rpcUrl),
       },
 })
 
