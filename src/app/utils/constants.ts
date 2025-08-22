@@ -27,8 +27,8 @@ console.log('🔍 Network config:', {
 const CONTRACT_ADDRESSES = {
   // Localhost (для разработки)
   '31337': '0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9',
-  // Sepolia (для тестирования на Vercel)
-  '11155111': process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_SEPOLIA || '0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43',
+  // Sepolia (для тестирования на Vercel) - НОВЫЙ КОНТРАКТ
+  '11155111': process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_SEPOLIA || '0x01b44565F7Bb276E156023699225612887c63AC3',
   // Mainnet (для продакшена)
   '1': process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_MAINNET || '0x0000000000000000000000000000000000000001'
 };
@@ -63,12 +63,12 @@ const TOKEN_ADDRESSES = {
     'USDC': { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', decimals: 6, symbol: 'USDC' },
     'USDT': { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', decimals: 6, symbol: 'USDT' }
   },
-  // Sepolia testnet - обновленные адреса
+  // Sepolia testnet - обновленные адреса наших токенов
   '11155111': {
     'ETH': { address: '0x0000000000000000000000000000000000000000', decimals: 18, symbol: 'ETH' },
     'WETH': { address: '0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9', decimals: 18, symbol: 'WETH' },
-    'USDC': { address: '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238', decimals: 6, symbol: 'USDC' },
-    'USDT': { address: '0x509Ee0d083DdF8AC028f2a56731412edD63223B9', decimals: 6, symbol: 'USDT' }
+    'USDC': { address: '0x82532e843530D8734F5Cf84eb833fab19394dfd2', decimals: 18, symbol: 'USDC' },
+    'USDT': { address: '0xFA195D6c7c0Ed19E913E30e6F019E0B13cD1e77d', decimals: 18, symbol: 'USDT' }
   },
   // Localhost (mock addresses)
   '31337': {

@@ -1,7 +1,8 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-  console.log("🚀 Deploying ImprovedProxySwap with fee management...");
+  console  // Получаем transaction hash
+  const txHash = improvedProxySwap.deployTransaction.hash;log("🚀 Deploying ImprovedProxySwap with fee management...");
   
   // Получаем деплойер
   const [deployer] = await ethers.getSigners();
@@ -9,9 +10,9 @@ async function main() {
   
   // Проверяем баланс
   const balance = await ethers.provider.getBalance(deployer.address);
-  console.log("💰 Deployer balance:", ethers.formatEther(balance), "ETH");
+  console.log("💰 Deployer balance:", ethers.utils.formatEther(balance), "ETH");
   
-  if (balance < ethers.parseEther("0.05")) {
+  if (balance.lt(ethers.utils.parseEther("0.05"))) {
     console.warn("⚠️  Low balance! Consider adding more ETH for gas fees");
   }
 
@@ -20,9 +21,9 @@ async function main() {
   const ImprovedProxySwap = await ethers.getContractFactory("ImprovedProxySwap");
   
   const improvedProxySwap = await ImprovedProxySwap.deploy();
-  await improvedProxySwap.waitForDeployment();
+  await improvedProxySwap.deployed();
   
-  const address = await improvedProxySwap.getAddress();
+  const address = improvedProxySwap.address;
   console.log("✅ ImprovedProxySwap deployed to:", address);
   
   // Устанавливаем базовые курсы обмена для тестирования
@@ -35,9 +36,9 @@ async function main() {
   
   // Примерные курсы (можно настроить позже)
   // 1 ETH = 2500 USDC/USDT (учитываем decimals)
-  const ETH_TO_USDC = ethers.parseUnits("2500", 6); // USDC has 6 decimals
-  const ETH_TO_USDT = ethers.parseUnits("2500", 6); // USDT has 6 decimals
-  const ETH_TO_WETH = ethers.parseEther("1"); // 1:1 rate
+  const ETH_TO_USDC = ethers.utils.parseUnits("2500", 6); // USDC has 6 decimals
+  const ETH_TO_USDT = ethers.utils.parseUnits("2500", 6); // USDT has 6 decimals
+  const ETH_TO_WETH = ethers.utils.parseEther("1"); // 1:1 rate
   
   try {
     // ETH -> Tokens
@@ -51,8 +52,8 @@ async function main() {
     console.log("📈 Set ETH -> WETH rate");
     
     // Обратные курсы (Tokens -> ETH)
-    const USDC_TO_ETH = ethers.parseEther("0.0004"); // 1 USDC = 0.0004 ETH
-    const USDT_TO_ETH = ethers.parseEther("0.0004"); // 1 USDT = 0.0004 ETH
+    const USDC_TO_ETH = ethers.utils.parseEther("0.0004"); // 1 USDC = 0.0004 ETH
+    const USDT_TO_ETH = ethers.utils.parseEther("0.0004"); // 1 USDT = 0.0004 ETH
     
     await improvedProxySwap.setExchangeRate(USDC_ADDRESS, ETH_ADDRESS, USDC_TO_ETH);
     console.log("📈 Set USDC -> ETH rate");

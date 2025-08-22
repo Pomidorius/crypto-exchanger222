@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-// Адреса контрактов на Sepolia (публичные тестовые токены)
+// Адреса контрактов на Sepolia (наши новые MockERC20 токены)
 const TOKENS = {
-  USDC: '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238',
-  USDT: '0x509Ee0d083DdF8AC028f2a56731412edD63223B9',
+  USDC: '0x82532e843530D8734F5Cf84eb833fab19394dfd2',
+  USDT: '0xFA195D6c7c0Ed19E913E30e6F019E0B13cD1e77d',
   ETH: '0x0000000000000000000000000000000000000000' // Native ETH
 }
 
