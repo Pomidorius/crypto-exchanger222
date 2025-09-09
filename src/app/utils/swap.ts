@@ -3,6 +3,7 @@ import { providers, Contract, BigNumber } from 'ethers'
 import { parseUnits } from 'ethers/lib/utils'
 import { PROXY_SWAP_ADDRESS, ProxySwapAbi, TokenMap, isContractDeployed } from './constants'
 import { quoteExactInput } from './uniswap'
+import { executeRealSwap } from './swap-real'
 
 // Минимальный ABI ERC20 для allowance/approve
 const ERC20_ABI = [
@@ -19,7 +20,54 @@ export interface SwapParams {
   userAddress: string
 }
 
+/**
+ * Главная функция свапа - автоматически выбирает реальный или mock режим
+ */
 export async function executeSwap(params: SwapParams): Promise<string> {
+  const { fromToken, toToken, amount, slippage, userAddress } = params
+
+  // Определяем, использовать ли реальные свапы
+  const shouldUseReal = await shouldUseRealSwaps()
+  
+  if (shouldUseReal) {
+    try {
+      console.log('🚀 Выполняем РЕАЛЬНЫЙ свап через Uniswap V3')
+      return await executeRealSwap(params)
+    } catch (error) {
+      console.error('Ошибка реального свапа, используем fallback:', error)
+      // Fallback на mock свап в случае ошибки
+    }
+  }
+  
+  // Mock свап (оригинальная логика)
+  console.log('🎭 Выполняем MOCK свап (демо-режим)')
+  return await executeMockSwap(params)
+}
+
+/**
+ * Определяет, следует ли использовать реальные свапы
+ */
+async function shouldUseRealSwaps(): Promise<boolean> {
+  const chainId = process.env.NEXT_PUBLIC_CHAIN_ID || '1'
+  
+  // Для localhost всегда используем mock
+  if (chainId === '31337') {
+    return false
+  }
+  
+  // Для mainnet и sepolia пробуем реальные свапы
+  if (chainId === '1' || chainId === '11155111') {
+    // Дополнительно проверяем что контракт задеплоен
+    return isContractDeployed()
+  }
+  
+  return false
+}
+
+/**
+ * Mock свап (оригинальная логика для демо)
+ */
+async function executeMockSwap(params: SwapParams): Promise<string> {
   const { fromToken, toToken, amount, slippage, userAddress } = params
 
   // Проверяем что контракт задеплоен

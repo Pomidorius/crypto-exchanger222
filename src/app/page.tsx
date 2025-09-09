@@ -1,13 +1,9 @@
 'use client'
 
-import { AutoDeployStatus } from './components/AutoDeployStatus'
 import { Header } from './components/Header'
 import { ImprovedSwapForm } from './components/ImprovedSwapForm'
 import { PortfolioBar } from './components/PortfolioBar'
 import { Footer } from './components/Footer'
-import { TestNetBanner } from './components/TestNetBanner'
-import { ContractStatus } from './components/ContractStatus'
-import { TestFaucet } from './components/TestFaucet'
 import { NetworkStatus } from './components/NetworkStatus'
 
 export default function Home() {
@@ -19,20 +15,8 @@ export default function Home() {
       {/* Main Content - Центральный блок с обменником */}
       <main className="main">
         <div className="swap-container">
-          {/* Уведомление о тестовой сети */}
-          <TestNetBanner />
-          
           {/* Статус подключения к сети */}
           <NetworkStatus />
-          
-          {/* Автоматический деплой для разработки */}
-          <AutoDeployStatus />
-          
-          {/* Статус контракта */}
-          <ContractStatus />
-          
-          {/* Тестовый кран для получения токенов */}
-          <TestFaucet />
           
           <div className="swap-card">
             <div className="swap-header">
